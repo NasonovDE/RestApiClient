@@ -1,0 +1,91 @@
+﻿@using RestApiClient.Models;
+@using Common.Extentions;
+@using Common.Models
+
+@model IQueryable<Kino>
+
+
+
+@{
+    string controllerName = "Kinos";
+}
+
+<br>
+<h1><b>Расписание</b></h1>
+<br>
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+         columns.Add(model => string.Format("<img src='/Films/GetImage/{1}'  style='max-width: 100px; max-height: 200px;' />", controllerName, model.Id)).Encoded(false).Titled("Обложка");
+
+      
+        columns.Add(model => string.Join(", ", model.Films.Select(x => $"{x.NameFilm}"))).Titled("Название фильма");
+        columns.Add(model => model.Price).Titled("Цена");
+        columns.Add(model => string.Join(", ", model.Cinemas.Select(x => $"{x.CinemaPlace}"))).Titled("Место показа");
+     
+        columns.Add(model => model.NextArrivalDate.HasValue ? model.NextArrivalDate.Value.ToString("dd.MM.yyyy") : "").Titled("Дата сеанса");
+        columns.Add(model => model.KinoTime.HasValue ? model.KinoTime.Value.ToString("HH:mm") : "").Titled("Время сеанса");
+
+        if (User.IsInRole("Administrator"))
+        {
+            columns.Add(model => Html.Partial("GridCellActionDetail", new GridCellActionViewModel() { Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+        }
+    })
+    //.UsingFilterMode(GridFilterMode.Row)
+    .Empty("Нет информации")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+   
+    )
+
+@if (User.IsInRole("Administrator"))
+{
+
+<div class="modal fade" id="modal-@controllerName" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="/@controllerName/Index" class="btn-close"></a>
+            </div>
+            <div class="modal-body" id="modal-body-@controllerName">
+                @if (ViewBag.Create != null)
+                {
+                    @Scripts.Render("~/bundles/bootstrap")
+                    @Html.Partial("Create", (Kino)ViewBag.Create)
+                    <script>
+                        new bootstrap.Modal(document.getElementById('modal-@controllerName')).show();
+                    </script>
+                }
+                @if (ViewBag.Edit != null)
+                {
+                    @Scripts.Render("~/bundles/bootstrap")
+                    @Html.Partial("Edit", (Kino)ViewBag.Edit)
+                    <script>
+                        new bootstrap.Modal(document.getElementById('modal-@controllerName')).show();
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
+<br />
+@if (User.IsInRole("Administrator"))
+{
+    <div class="btn-create">
+        @Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-dark" })
+    </div>}
+<footer>
+    <dl>
+        <dt>Дополнительная информация:</dt>
+    </dl>
+    <ol type="I">
+        <li><h6><i>Данная работа сделана в ознакомительных целях</i></h6></li>
+        <li><h6><i>Все расписания вымышлены, а совпадения случайны</i></h6></li>
+    </ol>
+
+</footer>

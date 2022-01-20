@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiClient", "RestApiClient\RestApiClient.csproj", "{0C854C0C-3873-4588-A776-2FCBC45C1E46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{EB9FFFD7-AADB-4DF4-8528-232051C8153C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiNews", "ApiNews\ApiNews.csproj", "{28DB0A76-8B46-4061-B91F-4D5CB6B7327B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C854C0C-3873-4588-A776-2FCBC45C1E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C854C0C-3873-4588-A776-2FCBC45C1E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C854C0C-3873-4588-A776-2FCBC45C1E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C854C0C-3873-4588-A776-2FCBC45C1E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB9FFFD7-AADB-4DF4-8528-232051C8153C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB9FFFD7-AADB-4DF4-8528-232051C8153C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB9FFFD7-AADB-4DF4-8528-232051C8153C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB9FFFD7-AADB-4DF4-8528-232051C8153C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28DB0A76-8B46-4061-B91F-4D5CB6B7327B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28DB0A76-8B46-4061-B91F-4D5CB6B7327B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28DB0A76-8B46-4061-B91F-4D5CB6B7327B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28DB0A76-8B46-4061-B91F-4D5CB6B7327B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D05CFF5B-D64E-496D-90A5-5B5EC6A03723}
+	EndGlobalSection
+EndGlobal

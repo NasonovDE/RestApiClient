@@ -1,0 +1,18 @@
+﻿@model RestApiClient.Models.Info
+
+
+<h3>Информация об Api</h3>
+
+@Html.ActionLink("Вернуться к новостям", "Index", "News", null, new { @class = "btn btn-dark" })
+<br />
+<br />
+<b>@Html.LabelFor(x => x.Version)</b>
+@Html.EditorFor(x => x.Version)
+
+<b>@Html.LabelFor(x => x.NewsSites)</b>
+<br />
+@Html.EditorFor(x => x.NewsSites)
+
+
+
+

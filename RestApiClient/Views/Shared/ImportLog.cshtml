@@ -1,0 +1,26 @@
+﻿@model RestApiClient.Models.ImportLog
+@{
+
+}
+
+<h3>Лог импорта</h3>
+
+@Html.ActionLink("Вернуться к новостям", "Index", "News", null, new { @class = "btn btn-dark" })
+<br />
+<br />
+<b>@Html.LabelFor(x => x.StartImport)</b>
+@Html.EditorFor(x => x.StartImport)
+
+<b>@Html.LabelFor(x => x.EndImport)</b>
+@Html.EditorFor(x => x.EndImport)
+
+<b>@Html.LabelFor(x => x.SuccessCount)</b>
+@Html.EditorFor(x => x.SuccessCount)
+
+<b>@Html.LabelFor(x => x.FailedCount)</b>
+@Html.EditorFor(x => x.FailedCount)
+
+<b>@Html.LabelFor(x => x.ImportLogs)</b>
+@Html.EditorFor(x => x.ImportLogs)
+
+

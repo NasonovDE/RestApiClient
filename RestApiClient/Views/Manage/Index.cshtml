@@ -1,0 +1,29 @@
+﻿@model RestApiClient.Models.IndexViewModel
+@{
+    ViewBag.Title = "Управление";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Изменение параметров учетной записи</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Пароль:</dt>
+        <br>
+        <dd>
+
+            @if (Model.HasPassword)
+            {
+
+                @Html.ActionLink("Смена пароля", "ChangePassword", null, new { @class = "btn btn-secondary" })
+            }
+            else
+            {
+                @Html.ActionLink("Создать", "SetPassword")
+            }
+
+        </dd>
+    </dl>
+</div>

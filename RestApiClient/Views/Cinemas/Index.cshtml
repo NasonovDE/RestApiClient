@@ -1,0 +1,78 @@
+﻿@using RestApiClient.Models
+@using Common.Models
+@model IQueryable<Cinema>
+
+@{
+    string controllerName = "Cinemas";
+}
+
+<br>
+<h1><b>Кинотеатры</b></h1>
+<br>
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.CinemaPlace).Titled("Место показа");
+        columns.Add(model => model.NumberOfBilets).Titled("Количество мест");
+        columns.Add(model => model.QRcode).Titled("Наличие QR кода");
+
+
+
+        if (User.IsInRole("Administrator"))
+        {
+            columns.Add(model => Html.Partial("GridCellActionDetail", new GridCellActionViewModel() { Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+        }
+    })
+    //.UsingFilterMode(GridFilterMode.Row)
+    .Empty("Нет информации")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+
+
+)
+
+
+
+
+@if (User.IsInRole("Administrator"))
+{
+
+    <div class="modal fade" id="modal-@controllerName" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="/@controllerName/Index" class="btn-close"></a>
+                    </div>
+                    <div class="modal-body" id="modal-body-@controllerName">
+                        @if (ViewBag.Create != null)
+                        {
+                            @Scripts.Render("~/bundles/bootstrap")
+                            @Html.Partial("Create", (Cinema)ViewBag.Create)
+                            <script>
+                                new bootstrap.Modal(document.getElementById('modal-@controllerName')).show();
+                            </script>
+                        }
+                        @if (ViewBag.Edit != null)
+                        {
+                            @Scripts.Render("~/bundles/bootstrap")
+                            @Html.Partial("Edit", (Cinema)ViewBag.Edit)
+                            <script>
+                                new bootstrap.Modal(document.getElementById('modal-@controllerName')).show();
+                            </script>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+}
+<br />
+@if (User.IsInRole("Administrator"))
+{
+    <div class="btn-create">
+        @Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-dark" })
+    </div>}

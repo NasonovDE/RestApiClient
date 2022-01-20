@@ -1,0 +1,77 @@
+﻿@using RestApiClient.Models;
+@using Common.Models
+@model IQueryable<Film>
+
+@{
+    string controllerName = "Films";
+}
+
+<br>
+<h1><b>Фильмы</b></h1>
+<br>
+
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+
+        columns.Add(model => model.NameFilm).Titled("Название фильма");
+        columns.Add(model => model.FilmYears).Titled("Возрастное ограничение");
+        columns.Add(model => string.Join(", ", model.Formats.Select(x => $"{x.Name}"))).Titled("Формат фильма");
+        columns.Add(model => string.Format("<img src='/{0}/GetImage/{1}' style='max-width: 100px; max-height: 200px;' />", controllerName, model.Id)).Encoded(false).Titled("Обложка");
+
+
+        if (User.IsInRole("Administrator"))
+        {
+            columns.Add(model => Html.Partial("GridCellActionDetail", new GridCellActionViewModel() { Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+        }
+    })
+    //.UsingFilterMode(GridFilterMode.Row)
+    .Empty("Нет информации")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+
+
+)
+
+
+@if (User.IsInRole("Administrator"))
+{
+
+<div class="modal fade" id="modal-@controllerName" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="/@controllerName/Index" class="btn-close"></a>
+            </div>
+            <div class="modal-body" id="modal-body-@controllerName">
+                @if (ViewBag.Create != null)
+                {
+                    @Scripts.Render("~/bundles/bootstrap")
+                    @Html.Partial("Create", (Film)ViewBag.Create)
+                    <script>
+                        new bootstrap.Modal(document.getElementById('modal-@controllerName')).show();
+                    </script>
+                }
+                @if (ViewBag.Edit != null)
+                {
+                    @Scripts.Render("~/bundles/bootstrap")
+                    @Html.Partial("Edit", (Film)ViewBag.Edit)
+                    <script>
+                        new bootstrap.Modal(document.getElementById('modal-@controllerName')).show();
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
+<br />
+@if (User.IsInRole("Administrator"))
+{
+    <div class="btn-create">
+        @Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-dark" })
+    </div>}

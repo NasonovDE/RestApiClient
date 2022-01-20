@@ -1,0 +1,15 @@
+﻿@using RestApiClient.Models
+@model Cinema
+
+<fieldset>
+    <legend>Пожалуйста, заполните необходимые поля</legend>
+    @using (Html.BeginForm("Edit", "Cinemas", FormMethod.Post))
+    {
+        @Html.ValidationSummary()
+        @Html.EditorForModel()
+
+        <input type="submit" value="Сохранить" class="btn btn-secondary" />
+        @Html.ActionLink("Отменить", "Index", "Cinemas", null, new { @class = "btn btn-danger" })
+    }
+</fieldset>
+
